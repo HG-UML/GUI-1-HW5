@@ -1,0 +1,41 @@
+/*
+Hannah Guillen, UMass Lowell Computer Science
+hannah_guillen@student.uml.edu, hguillen@cs.uml.edu
+Date: December 20, 2022
+File: style.css
+GUI Assignment: Implementing a Bit of Scrabble
+This file is for all CSS styling.
+
+Copyright (c) 2022 by Hannah Guillen. All rights reserved. May be freely
+copied or excerpted for educational purposes with credit to the author.
+ */
+
+/* Information shown to player */
+#playerInfo{
+  width: 600px;
+  margin: 30px auto 10px auto;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #339933;
+  font-size: 14px;
+}
+/* Makes information displayed inline */
+#playerInfo div {
+  display: inline-block;
+}
+/* Creates space between information and bolds score */
+#playerInfo > div > div:nth-child(2) {
+  width: 72px;
+  font-weight: bold;
+}
+
+#scrabBoard{
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
+}
+
+.boardSlot{
+  border-style: solid;
+  border-color: black;
+  float: left;
+}
