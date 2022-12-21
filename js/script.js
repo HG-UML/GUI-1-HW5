@@ -56,7 +56,7 @@ scrabbleBoard.rowCount = Object.keys(scrabbleBoard.slots).length;
 scrabbleBoard.columnCount = Object.keys(scrabbleBoard.slots[0]).length;
 
 var text_black = "black";
-// var text_off = "red";
+var text_grey = "grey";
 
 var boardScore = {"totalScore": 0};
 boardScore.calculateScore = function() {
@@ -83,7 +83,7 @@ boardScore.calculateScore = function() {
 
 // For information given by player input
 boardScore.refresh = function() {
-  var score = boardScore.calculateBoard();
+  var score = boardScore.calculateScore();
 
   boardScore.totalScore += boardScore;
   $("#currentScore").html(boardScore.totalScore + " (+<span id='boardScore'>" + score + "</span>)");
@@ -91,7 +91,7 @@ boardScore.refresh = function() {
     $("#currentScore").css("color, text_black");
   }
   else {
-    $("#currentScore").css("color, text_black");
+    $("#currentScore").css("color, text_grey");
   }
 }
 
@@ -174,26 +174,32 @@ scrabbleBoard.deleteTile = function(x, y) {
   delete scrabbleBoard.slots[x][y].tileNumber;
   delete scrabbleBoard.slots[x][y].tileLetter;
 }
-function deactivateObj(jQueryObj, yes) {
-  if (yes) {
-    jQueryObj.css({
-      "-webkit-filter": "grayscale(100%)",
-      "-moz-filter": "grayscale(100%)",
-      "-o-filter": "grayscale(100%)",
-      "-ms-filter": "grayscale(100%)",
-      "filter": "grayscale(100%)",
-      "opacity": 0.2
-    });
+
+scrabbleBoard.findSlotTile = function(tileNumber) {
+  var x, y;
+  for (x = 0; x < scrabbleBoard.rowCount; ++x) {
+    for (y = 0; y < scrabbleBoard.columnCount; ++y) {
+      if (scrabbleBoard.slots[x][y].tileNumber === tileNumber) {
+        return [x, y];
+      }
+    }
   }
-  else {
-    jQueryObj.css({
-      "-webkit-filter": "",
-      "-moz-filter": "",
-      "-o-filter": "",
-      "-ms-filter": "",
-      "filter": "",
-      "opacity": 1.0
-    });
+  return false;
+}
+
+scrabbleBoard.displayBoard = function() {
+  var x, y;
+  for (x = 0; x < scrabbleBoard.rowCount; ++x) {
+    for (y = 0; y < scrabbleBoard.columnCount; ++y) {
+      console.log("scrabbleBoard.slots[" + x + "][" + y + "] tileLetter: " + scrabbleBoard.slots[x][y].tileLetter + ", tileNumber: " + scrabbleBoard.slots[x][y].tileNumber);
+    }
   }
 }
+
+function getFromDeck(n) {
+  var hand = [];
+  var allTiles = [];
+}
+
+
 
