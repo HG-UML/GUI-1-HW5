@@ -55,8 +55,8 @@ scrabbleBoard.slots[0][6] = { "multLetter": 1, "multWord": 2, "image": "graphics
 scrabbleBoard.rowCount = Object.keys(scrabbleBoard.slots).length;
 scrabbleBoard.columnCount = Object.keys(scrabbleBoard.slots[0]).length;
 
-var text_on = "#3399333";
-var text_off = "red";
+var text_black = "black";
+// var text_off = "red";
 
 var boardScore = {"totalScore": 0};
 boardScore.calculateScore = function() {
@@ -88,10 +88,20 @@ boardScore.refresh = function() {
   boardScore.totalScore += boardScore;
   $("#currentScore").html(boardScore.totalScore + " (+<span id='boardScore'>" + score + "</span>)");
   if (score > 0) {
-    $("#currentScore").css("color, text_on");
+    $("#currentScore").css("color, text_black");
   }
   else {
-    $("#currentScore").css("color, text_off");
+    $("#currentScore").css("color, text_black");
+  }
+}
+
+boardScore.commit = function() {
+  var score = boardScore.calculateScore();
+
+  boardScore.totalScore += score;
+  $("#currentScore").html(boardScore.calculateScore);
+  if (boardScore.totalScore > 0) {
+    $("#currentScore").css("color, text_black");
   }
 }
 
@@ -137,6 +147,33 @@ scrabbleBoard.getTileNumber = function(row, col) {
   return scrabbleBoard.slots[row][col].tileNumber;
 }
 
+scrabbleBoard.getTileLetter = function (row, column) {
+  return scrabbleBoard.slots[row][column].tileLetter;
+}
+
+scrabbleBoard.emptySlot = function(row, column) {
+  return typeof(scrabbleBoard.slots[row][column].tileNumber) === "UNDEFINED";
+}
+
+scrabbleBoard.addSlot = function(tileNum, x, y, z) {
+  var row, column;
+
+  for (row = 0; row < scrabbleBoard.rowCount; ++row) {
+    for (column = 0; column < scrabbleBoard.columnCount; ++column) {
+      if (scrabbleBoard.slots[row][column].tileNumber === tileNumber) {
+        delete scrabbleBoard.slots[row][column].tileNumber;
+        delete scrabbleBoard.slots[row][column].tileLetter;
+      }
+    }
+  }
+  scrabbleBoard.slots[row][column].tileLetter = tileLetter;
+  scrabbleBoard.slots[row][column].tileNumber = tileNumber;
+}
+
+scrabbleBoard.deleteTile = function(x, y) {
+  delete scrabbleBoard.slots[x][y].tileNumber;
+  delete scrabbleBoard.slots[x][y].tileLetter;
+}
 function deactivateObj(jQueryObj, yes) {
   if (yes) {
     jQueryObj.css({
@@ -159,3 +196,4 @@ function deactivateObj(jQueryObj, yes) {
     });
   }
 }
+
