@@ -1,0 +1,65 @@
+<!--
+Hannah Guillen, UMass Lowell Computer Science
+  hannah_guillen@student.uml.edu, hguillen@cs.uml.edu
+Date: December 20, 2022
+File: index.html
+GUI Assignment: Implementing a Bit of Scrabble
+  This file is the main HTML page.
+
+Copyright (c) 2022 by Hannah Guillen. All rights reserved. May be freely
+copied or excerpted for educational purposes with credit to the author.
+-->
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Play Scrabble!</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <script src="js/script.js"></script>
+
+  <!-- jQuery Libraries using Google's CDN (for Drag-and-Drop) -->
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+</head>
+
+<body>
+  <div id="wrapper">
+
+    <header>The Scrabble Board Game!</header>
+
+  </div>
+
+  <div id="playerInfo">
+    <div>
+      <div class="label">Your Word:</div>
+      <div id="currentWord"></div>
+    </div>
+    <div>
+      <div class="label">Your Score:</div>
+      <div id="currentScore">0</div>
+    </div>
+    <div>
+      <div class="label">Total Score:</div>
+      <div id="totalScore">0</div>
+    </div>
+  </div>
+
+  <!-- Scrabble board -->
+  <div id="scrabBoard"></div>
+
+  <div id="requirements">
+    <div>Does the word have any gaps?<img id="oneWordCheckIcon" src="img/checkIcon.png" class="instructionIcon" alt="Checked" /></div>
+    <div>Does the word have a minimum of 2 letters?<img id="minLengthIcon" src="img/checkIcon.png" class="instructionIcon" alt="Checked" /></div>
+    <div>Is the word found in the dictionary?<img id="dictionaryCheckIcon" src="img/checkIcon.png" class="instructionIcon" alt="Checked" /></div>
+  </div>
+
+  <div class="buttons">
+    <button id="keepPlayingButton" onclick="keepPlaying()">KEEP PLAYING</button>
+    <button id="resetButton" onclick="reset()">RESET BOARD</button>
+  </div>
+
+  <div id="playerLetters"></div>
+
+</body>
+</html>
