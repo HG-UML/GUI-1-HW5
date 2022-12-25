@@ -4,7 +4,7 @@ Hannah Guillen, UMass Lowell Computer Science
 Date: December 20, 2022
 File: options.js
 GUI Assignment: Implementing a Bit of Scrabble
-  This JavaScript page checks user word for validation. It also contains
+  This JavaScript file checks user word for validation. It also contains
   all options given to the user, such as CLEAR BOARD, CHECK WORD, and UNDO.
 
 Copyright (c) 2022 by Hannah Guillen. All rights reserved. May be freely
@@ -12,30 +12,30 @@ copied or excerpted for educational purposes with credit to the author.
 -->
 
 // Check if user input string is in the dictionary
-function DictionaryCheck(playerWord) {
-  return !!(playerWord.length > 0 && DictionaryCheck.dict[playerWord]);
+function DictionaryWordCheck(playerWord) {
+  return !!(playerWord.length > 0 && DictionaryWordCheck.dict[playerWord]);
 }
 
-// Look up using dictionary and ajax
-DictionaryCheck.dict = {};
+// Look up using dictionary with ajax
+DictionaryWordCheck.dict = {};
 $.ajax({
-  url: "/dict.txt", success: function (result) {
-    var arWords = result.split("\n");
+  url: "../dict.txt",
+  success: function(result) {
+    var w = result.split("\n");
 
-    for (var i = 0; i < arWords.length; ++i) {
-      DictionaryCheck.dict[arWords[i].toUpperCase()] = true;
+    for (var i = 0; i < w.length; ++i) {
+      DictionaryWordCheck.dict[w[i].toUpperCase()] = true;
     }
   }
-})
+});
 
 function WordIsGood() {
-  var column, letter, count, playerWord = " ", row = 0;
+  var column, letter, count, playerWord = "", row = 0;
 
   for (column = 0; column < scrabbleBoard.columnCount; ++column) {
-    letter = scrabbleBoard.getTileLetter(row, column);
+    letter = scrabbleBoard.tileLett(row, column);
     if (typeof(letter) === "undefined") {
-      // Use underscore to show user when there is a space between letters
-      playerWord += "\5F";
+      playerWord += "\5F"; // underscore "_" used for space
     }
     else {
       playerWord += letter;
@@ -45,98 +45,72 @@ function WordIsGood() {
   var validWord = "green";
   var invalidWord = "red";
 
-  // Check for input errors
   count = 0;
+
+  // If player word is equal to no string
   if (playerWord == "") {
-    IsWordValid(false);
+    wordGapCheck(false);
     ++count;
   }
   else {
     var SpaceInWord = new RegExp("[A-Z_]\5F+[A-Z_]")
     if (SpaceInWord.test(playerWord)) {
-      IsWordValid(false);
+      wordGapCheck(false);
       ++count;
     }
     else {
-      IsWordValid(true);
+      wordGapCheck(true);
     }
   }
 
   // Word must have at least 2 letters
   if (playerWord.length >= 2) {
-    IsMinValid(true);
-  }
-  else {
-    IsMinValid(false);
+    minimumCheck(true);
+  } else {
+    minimumCheck(false);
     ++count;
-
   }
 
   // Dictionary look-up
-  if (DictionaryCheck(playerWord)) {
-    IsInDict(true);
-  }
-  else {
-    IsInDict(false);
+  if (DictionaryWordCheck(playerWord)) {
+    wordDictCheck(true);
+  } else {
+    wordDictCheck(false);
     ++count;
   }
 
   if (count) {
-    document.getElementById("nextWordButton").disabled = true;
-    $("#playerWord").css("color", validWord);
+    document.getElementById("continueButton").disabled = true;
+    $("#currentWord").css("color", clForestGreen);
     return false;
   }
 
-  $("#currentWord").css("color", invalidWord);
-  document.getElementById("nextWordButton").disabled = false;
+  $("#currentWord").css("color", clFirebrick);
+  document.getElementById("continueButton").disabled = false;
   return playerWord;
 }
 
-function IsMinValid(valid) {
+// Used to show brown check mark if each test is passed
+function minimumCheck(valid) {
   if (valid) {
     deactivateObj($("#minCheck"), false);
-  }
-  else {
+  } else {
     deactivateObj($("#minCheck"), true);
   }
 }
 
-// If each function is invalid, check icon will show
-function IsWordValid(invalid) {
-  if (invalid) {
+function wordGapCheck(valid) {
+  if (valid) {
     deactivateObj($("#gapCheck"), false);
-  }
-  else {
+  } else {
     deactivateObj($("#gapCheck"), true);
   }
 }
-function IsInDict(valid) {
+
+function wordDictCheck(valid) {
   if (valid) {
     deactivateObj($("#dictionaryCheck"), false);
-  }
-  else {
+  } else {
     deactivateObj($("#dictionaryCheck"), true);
-  }
-}
-function deactivateObj(jQueryObj, yes) {
-  if (yes) {
-    jQueryObj.css({
-      "-webkit-filter": "grayscale(100%)",
-      "-moz-filter": "grayscale(100%)",
-      "-o-filter": "grayscale(100%)",
-      "-ms-filter": "grayscale(100%)",
-      "filter": "grayscale(100%)",
-      "opacity": 0.2
-    });
-  }
-  else {
-    jQueryObj.css({
-      "-webkit-filter": "",
-      "-moz-filter": "",
-      "-o-filter": "",
-      "-ms-filter": "",
-      "filter": "",
-      "opacity": 1.0
-    });
   }
 }
