@@ -2,6 +2,7 @@
 Hannah Guillen, UMass Lowell Computer Science
   hannah_guillen@student.uml.edu, hguillen@cs.uml.edu
 Date: December 20, 2022
+Last edited on: February 28, 2023
 File: index.html
 GUI Assignment: Implementing a Bit of Scrabble
   This file is the main HTML page.
@@ -22,21 +23,16 @@ copied or excerpted for educational purposes with credit to the author.
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <script src="js/script.js"></script>
-  <script src="js/options.js"></script>
-  <script src="js/dragdrop.js"></script>
+
 </head>
 
 <body>
   <div id="heading">
-
     <header>The Scrabble Board Game!</header>
-
   </div>
 
   <main>
     <article>
-
       <!-- Player information shown on screen -->
       <div id="playerInfo">
         <div>
@@ -57,26 +53,30 @@ copied or excerpted for educational purposes with credit to the author.
         </div> -->
       </div>
 
-      <!-- Scrabble board -->
-      <div id="scrabBoard"></div>
+        <!-- Scrabble board -->
+        <div id="scrabBoard"></div>
 
-      <div id="requirements">
-        <div>Does the word have any gaps?<img id="gapCheck" src="graphics_data/brown_checkmark.png" class="fulfilled" alt="true" /></div>
-        <div>Does the word have a minimum of 2 letters?<img id="minCheck" src="graphics_data/brown_checkmark.png" class="fulfilled" alt="true" /></div>
-        <div>Is the word found in the dictionary?<img id="dictionaryCheck" src="graphics_data/brown_checkmark.png" class="fulfilled" alt="true" /></div>
-      </div>
+        <div id="requirements">
+          <div>Does the word have any gaps?<img id="gapCheck" src="graphics_data/brown_checkmark.png" class="fulfilled" alt="true" /></div>
+          <div>Does the word have a minimum of 2 letters?<img id="minCheck" src="graphics_data/brown_checkmark.png" class="fulfilled" alt="true" /></div>
+          <div>Is the word found in the dictionary?<img id="dictionaryCheck" src="graphics_data/brown_checkmark.png" class="fulfilled" alt="true" /></div>
+        </div>
 
-      <!-- Reset board/ keep playing buttons -->
-      <div class="buttons">
-        <button id="continueButton" onclick="nextWord()">KEEP PLAYING</button>
-        <button id="resetButton" onclick="restart()">RESET BOARD</button>
-      </div>
+        <!-- Reset board/ keep playing buttons -->
+        <div class="buttons">
+          <button id="continueButton" onclick="nextWord()">KEEP PLAYING</button>
+          <button id="resetButton" onclick="restart()">RESET BOARD</button>
+        </div>
 
-      <!-- Player letter rack -->
-      <div id="playerLetters"></div>
+        <!-- Player letter rack -->
+        <div id="playerLetters"></div>
 
     </article>
   </main>
-</div>
+
+  <script src="js/script.js"></script>
+  <script src="js/options.js"></script>
+  <script src="js/dragdrop.js"></script>
 </body>
+
 </html>
